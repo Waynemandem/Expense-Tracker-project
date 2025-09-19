@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xtracker</title>
+    <link rel="stylesheet" href="Xtracker.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+</head>
+<body>
+    <header>
+        <h1 id="header-h1">
+            Expense Tracker
+        </h1>
+        
+        <div id="total-balance-div">
+            <h2>Total Balance:</h2>
+            <h3 id="total-balance">&#8377;0.00</h3>
+        </div>
+    </header>
+    
+     <section>
+        <div id="parent">
+          <div id="child-1">
+            <h2>Expense</h2>
+            <p>&#8377;0.00</p>
+          </div>
+          <div id="child-2">
+            <h2>Income</h2>
+            <p>&#8377;0.00</p>
+          </div>
+        </div>
+      </section>
+
+
+    <main>
+        <div class="form-div"> 
+            <form action="post" id="expense-form">
+                <h3>Expense Form:</h3>
+                    <div>  
+                      <label for="text">Title:</label><br>
+                      <input type="text" required placeholder="Expense title">
+                    </div>  
+                          <br>
+                   <div>
+                     <label for="number">Amount:</label><br>
+                     <input type="number" required placeholder="&#8377;0.00"> 
+                   </div> 
+                          <br>
+                   <div>
+                     <label for="date">Date:</label><br>
+                     <input type="date" name="" required>
+                   </div>
+                          <br>
+                   <div>
+                     <label for="category">Expense Category:</label><br>
+<select id="category" name="category">
+  <optgroup label="Food & Dining">
+    <option value="groceries">Groceries</option>
+    <option value="restaurants">Restaurants</option>
+    <option value="snacks">Snacks</option>
+    <option value="coffee">Coffee</option>
+  </optgroup>
+
+  <optgroup label="Transportation">
+    <option value="fuel">Fuel</option>
+    <option value="bus">Bus Fare</option>
+    <option value="taxi">Taxi</option>
+    <option value="car-maintenance">Car Maintenance</option>
+  </optgroup>
+
+  <optgroup label="Housing">
+    <option value="rent">Rent</option>
+    <option value="mortgage">Mortgage</option>
+    <option value="utilities">Utilities</option>
+    <option value="repairs">Repairs</option>
+  </optgroup>
+
+  <optgroup label="Bills & Subscriptions">
+    <option value="internet">Internet</option>
+    <option value="phone">Phone</option>
+    <option value="streaming">Streaming</option>
+    <option value="electricity">Electricity</option>
+    <option value="water">Water</option>
+  </optgroup>
+
+  <optgroup label="Health">
+    <option value="hospital">Hospital</option>
+    <option value="medicine">Medicine</option>
+    <option value="insurance">Insurance</option>
+    <option value="gym">Gym</option>
+  </optgroup>
+
+  <optgroup label="Shopping">
+    <option value="clothes">Clothes</option>
+    <option value="electronics">Electronics</option>
+    <option value="household">Household Items</option>
+  </optgroup>
+
+  <optgroup label="Education">
+    <option value="tuition">Tuition</option>
+    <option value="books">Books</option>
+    <option value="courses">Courses</option>
+  </optgroup>
+
+  <optgroup label="Entertainment">
+    <option value="movies">Movies</option>
+    <option value="games">Games</option>
+    <option value="outings">Outings</option>
+  </optgroup>
+
+  <optgroup label="Savings & Investment">
+    <option value="savings">Savings</option>
+    <option value="stocks">Stocks</option>
+    <option value="crypto">Crypto</option>
+  </optgroup>
+
+  <optgroup label="Miscellaneous">
+    <option value="gifts">Gifts</option>
+    <option value="donations">Donations</option>
+    <option value="unexpected">Unexpected Expenses</option>
+  </optgroup>
+</select>
+                   </div>
+                          <br>
+                    <div>
+                    <label for="recurrence">Recurrence:</label><br>
+<select id="recurrence" name="recurrence">
+  <option value="one-time" selected>One-time</option>
+  <option value="daily">Daily</option>
+  <option value="weekly">Weekly</option>
+  <option value="bi-weekly">Every 2 Weeks</option>
+  <option value="monthly">Monthly</option>
+  <option value="quarterly">Quarterly</option>
+  <option value="yearly">Yearly</option>
+  <option value="custom">Custom</option>
+</select>
+                    </div>
+                          <br>      
+                   <div id="text-area">
+                    <textarea name="Notes(optional)" placeholder="Notes" id=""></textarea>
+                   </div>
+                          <br>
+                   <button type="submit">Submit</button>
+                          
+                   <button type="button">Add Expense</button>
+            </form>
+        </div>
+
+
+        <div class="form-div">
+       <form action="post" id="income-form">
+       <h3>Income form</h3>
+        <div>  
+                      <label for="text">Title:</label><br>
+                      <input type="text" required placeholder="Income title">
+                    </div>  
+                         <br>
+                       <div>  
+                      <label for="text">Amount:</label><br>
+                      <input type="number" required placeholder="&#8377;0.00">
+                    </div>     
+                          <br>
+                        <div>  
+                      <label for="text">Date:</label><br>
+                      <input type="date" required>
+                    </div>     
+                          <br>
+                       <div>  
+                       <label for="income-type">Income Source:</label><br>
+<select id="income-type" name="income-type">
+  <option value="salary">Salary / Wages</option>
+  <option value="freelance">Freelance / Side Hustle</option>
+  <option value="business">Business Revenue</option>
+  <option value="investment">Investments</option>
+  <option value="rent">Rent / Property Income</option>
+  <option value="gifts">Gifts</option>
+  <option value="grants">Grants / Scholarships</option>
+  <option value="other">Other</option>
+</select>
+                       </div>      
+                          <br>
+                       <div>
+                        <label for="recurrence">Recurrence:</label><br>
+<select id="recurrence" name="recurrence">
+  <option value="one-time" selected>One-time</option>
+  <option value="daily">Daily</option>
+  <option value="weekly">Weekly</option>
+  <option value="bi-weekly">Every 2 Weeks</option>
+  <option value="monthly">Monthly</option>
+  <option value="quarterly">Quarterly</option>
+  <option value="yearly">Yearly</option>
+  <option value="custom">Custom</option>
+</select>
+                       </div>
+                          <br>      
+                   <div id="text-area">
+                    <textarea name="Notes(optional)" placeholder="Notes" id=""></textarea>
+                   </div>
+                          <br>
+                   <button type="submit">Submit</button>
+                          
+                   <button type="button">Add Income</button>       
+       </form>
+        </div>
+    </main>
+
+  <div id="okay">
+    <section>
+        <div id="filters">
+           <h2>Filter</h2>
+               <div>
+                   <label for="date">From Date:</label>
+                      <input type="date">
+                  <label for="date">To Date:</label>
+                      <input type="date">
+               </div>
+                        <br>
+               <div>
+                   <label for="text">Catergory:</label>
+               </div> 
+        </div>
+    </section>
+
+     <section>
+        <div id="summary-container">
+            <h2>Summary</h2>
+            <div>
+                <h4>Total Expenses: &#8377; 0.00</h4>
+                <ul>
+                    <li>Food  &#8377;0.00</li>
+                    <li>Transportation  &#8377;0.00</li>
+                    <li>Entertainment  &#8377; 0.00</li>
+                    <li>Miscellaneous   &#8377; 0.00</li>
+                </ul>
+            </div>
+
+            <div id="chart">
+
+            </div>
+        </div>
+    </section>
+   </div> 
+
+    <section>
+        <div id="list-container">
+          <h2>Expense List</h2>
+            <h3>Your Expenses</h3>
+               <div id="list-table">
+                   <table>
+                     <tr>
+                        <th>Date</th>
+                        <th>Catergory</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                     </tr>
+                     <tr>
+                        <td>12/9/2025</td>
+                        <td>Food</td>
+                        <td>$15</td>
+                        <td>Delete</td>
+                     </tr>
+                     <tr>
+
+                     </tr>
+                   </table>
+               </div>
+        </div>
+    </section>
+
+
+    <footer>
+        Expense Tracker © 2025
+        <br>
+        Built by Big Wayne.
+    </footer>
+
+    
+    <script src="Xtracker.js"></script>
+</body>
+</html>
