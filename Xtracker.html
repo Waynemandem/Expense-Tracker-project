@@ -1,242 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xtracker</title>
-    <link rel="stylesheet" href="Xtracker.css">
-    <link rel="icon" type="image/png" href="favicon.png">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xtracker</title>
+  <link rel="stylesheet" href="Xtracker.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-    <header>
-        <h1 id="header-h1">
-            Expense Tracker
-        </h1>
-        
-        <div id="total-balance-div">
-            <h2>Total Balance:</h2>
-            <h3 id="balance">&#8377;0.00</h3>
-        </div>
-    </header>
-    
-     <section>
-        <div id="parent">
-          <div id="child-1">
-           
-            <h2>Expense</h2>
-            <h3>Total: $<span id="totalAmount">0</span></h3>
-          </div>
-          <div id="child-2">
-            <h2>Income</h2>
-          <h3>Total: $<span id="totalAmount">0</span></h3>
-        </div>
-        </div>
-      </section>
+  <header>
+    <h1 id="header-h1">Expense Tracker</h1>
+    <div id="total-balance-div">
+      <h2>Total Balance:</h2>
+      <h3 id="main-balance">₹0</h3>
+    </div>
+  </header>
 
+  <section>
+    <div id="parent">
+      <div id="child-1">
+        <h2>Expense</h2>
+        <h3>Total: ₹<span id="expense-total">0</span></h3>
+      </div>
+      <div id="child-2">
+        <h2>Income</h2>
+        <h3>Total: ₹<span id="income-total">0</span></h3>
+      </div>
+    </div>
+  </section>
 
-    <main>
-        <div class="form-div"> 
-            <form action="post" id="expense-form">
-                <h3>Expense Form:</h3>
-                    <div>  
-                      <label for="text">Title:</label><br>
-                      <input type="text" id="description" required placeholder="Expense title">
-                    </div>  
-                          <br>
-                   <div>
-                     <label for="number">Amount:</label><br>
-                     <input type="number" id="amount" required placeholder="&#8377;0.00"> 
-                   </div> 
-                          <br>
-                   <div>
-                     <label for="date">Date:</label><br>
-                     <input type="date" name="" required>
-                   </div>
-                          <br>
-                   <div>
-                     <label for="category">Expense Category:</label><br>
-<select id="type" name="category" options required> 
-  <optgroup label="Food & Dining">
-    <option value="groceries">Groceries</option>
-    <option value="restaurants">Restaurants</option>
-    <option value="snacks">Snacks</option>
-    <option value="coffee">Coffee</option>
-  </optgroup>
+  <main>
+    <!-- EXPENSE FORM -->
+    <div class="form-div"> 
+      <form id="expense-form">
+        <h3>Expense Form:</h3>
+        <label>Title:</label><br>
+        <input type="text" id="expenseName" required placeholder="Expense title"><br><br>
 
-  <optgroup label="Transportation">
-    <option value="fuel">Fuel</option>
-    <option value="bus">Bus Fare</option>
-    <option value="taxi">Taxi</option>
-    <option value="car-maintenance">Car Maintenance</option>
-  </optgroup>
+        <label>Amount:</label><br>
+        <input type="number" id="expenseAmount" required placeholder="₹0.00"><br><br>
 
-  <optgroup label="Housing">
-    <option value="rent">Rent</option>
-    <option value="mortgage">Mortgage</option>
-    <option value="utilities">Utilities</option>
-    <option value="repairs">Repairs</option>
-  </optgroup>
+        <label>Date:</label><br>
+        <input type="date" id="expenseDate" required><br><br>
 
-  <optgroup label="Bills & Subscriptions">
-    <option value="internet">Internet</option>
-    <option value="phone">Phone</option>
-    <option value="streaming">Streaming</option>
-    <option value="electricity">Electricity</option>
-    <option value="water">Water</option>
-  </optgroup>
+        <label>Expense Category:</label><br>
+        <select id="expenseCategory" required>
+          <option value="groceries">Groceries</option>
+          <option value="rent">Rent</option>
+          <option value="transport">Transport</option>
+          <option value="utilities">Utilities</option>
+          <option value="other">Other</option>
+        </select><br><br>
 
-  <optgroup label="Health">
-    <option value="hospital">Hospital</option>
-    <option value="medicine">Medicine</option>
-    <option value="insurance">Insurance</option>
-    <option value="gym">Gym</option>
-  </optgroup>
+        <label>Recurrence:</label><br>
+        <select id="expenseRecurrence">
+          <option value="one-time" selected>One-time</option>
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select><br><br>
 
-  <optgroup label="Shopping">
-    <option value="clothes">Clothes</option>
-    <option value="electronics">Electronics</option>
-    <option value="household">Household Items</option>
-  </optgroup>
+        <textarea id="expenseNotes" placeholder="Notes (optional)"></textarea><br><br>
 
-  <optgroup label="Education">
-    <option value="tuition">Tuition</option>
-    <option value="books">Books</option>
-    <option value="courses">Courses</option>
-  </optgroup>
+        <button type="submit">Add Expense</button>
+      </form>
+    </div>
 
-  <optgroup label="Entertainment">
-    <option value="movies">Movies</option>
-    <option value="games">Games</option>
-    <option value="outings">Outings</option>
-  </optgroup>
+    <!-- INCOME FORM -->
+    <div class="form-div">
+      <form id="income-form">
+        <h3>Income Form:</h3>
+        <label>Title:</label><br>
+        <input type="text" id="income-description" required placeholder="Income title"><br><br>
 
-  <optgroup label="Savings & Investment">
-    <option value="savings">Savings</option>
-    <option value="stocks">Stocks</option>
-    <option value="crypto">Crypto</option>
-  </optgroup>
+        <label>Amount:</label><br>
+        <input type="number" id="income-amount" required placeholder="₹0.00"><br><br>
 
-  <optgroup label="Miscellaneous">
-    <option value="gifts">Gifts</option>
-    <option value="donations">Donations</option>
-    <option value="unexpected">Unexpected Expenses</option>
-  </optgroup>
-</select>
-                   </div>
-                          <br>
-                    <div>
-                    <label for="recurrence">Recurrence:</label><br>
-<select id="recurrence" name="recurrence">
-  <option value="one-time" selected>One-time</option>
-  <option value="daily">Daily</option>
-  <option value="weekly">Weekly</option>
-  <option value="bi-weekly">Every 2 Weeks</option>
-  <option value="monthly">Monthly</option>
-  <option value="quarterly">Quarterly</option>
-  <option value="yearly">Yearly</option>
-  <option value="custom">Custom</option>
-</select>
-                    </div>
-                          <br>      
-                   <div id="text-area">
-                    <textarea name="Notes(optional)" placeholder="Notes" id=""></textarea>
-                   </div>
-                          <br>
-                   <button type="submit">Submit</button>
-                          
-                   <button type="button">Add Expense</button>
-            </form>
-        </div>
+        <label>Date:</label><br>
+        <input type="date" id="incomeDate" required><br><br>
 
+        <label>Income Category:</label><br>
+        <select id="incomeCategory">
+          <option value="salary">Salary</option>
+          <option value="business">Business</option>
+          <option value="investment">Investment</option>
+          <option value="other">Other</option>
+        </select><br><br>
 
-        <div class="form-div">
-            <form action="post" id="income-form">
-                <h3>Income Form:</h3>
-                    <div>  
-                      <label for="text">Title:</label><br>
-                      <input type="text" id="description" required placeholder="Income title">
-                    </div>  
-                          <br>
-                   <div>
-                     <label for="number">Amount:</label><br>
-                     <input type="number" id="amount" required placeholder="&#8377;0.00"> 
-                   </div> 
-                          <br>
-                   <div>
-                     <label for="date">Date:</label><br>
-                     <input type="date" name="" required>
-                   </div>
-                          <br>
-                   <div>
-                     <label for="category">Income Category:</label><br> 
-                     <select id="income-type" name="income-type">
-  <option value="salary">Salary / Wages</option>
-  <option value="freelance">Freelance / Side Hustle</option>
-  <option value="business">Business Revenue</option>
-  <option value="investment">Investments</option>
-  <option value="rent">Rent / Property Income</option>
-  <option value="gifts">Gifts</option>
-  <option value="grants">Grants / Scholarships</option>
-  <option value="other">Other</option>
-</select>
-                    </div>
-                            <br>
-                      <div>
-                      <label for="recurrence">Recurrence:</label><br>
-<select id="recurrence" name="recurrence">
-  <option value="one-time" selected>One-time</option>  
-  <option value="daily">Daily</option>
-  <option value="weekly">Weekly</option>
-  <option value="bi-weekly">Every 2 Weeks</option>
-  <option value="monthly">Monthly</option>
-  <option value="quarterly">Quarterly</option>
-  <option value="yearly">Yearly</option>
-  <option value="custom">Custom</option>
-</select>
+        <label>Recurrence:</label><br>
+        <select id="incomeRecurrence">
+          <option value="one-time" selected>One-time</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select><br><br>
 
-                      </div>
-                          <br>      
-                   <div id="text-area">
-                    <textarea name="Notes(optional)" placeholder="Notes" id=""></textarea>
-                   </div>
-                          <br>
-                   <button type="submit">Submit</button>
-                          
-                   <button type="button">Add Income</button>
-            </form> 
+        <textarea id="incomeNotes" placeholder="Notes (optional)"></textarea><br><br>
 
-        </div>
-       
-    </main>
+        <button type="submit">Add Income</button>
+      </form> 
+    </div>
+  </main>
 
-  <div id="okay">
+  <!-- SUMMARY -->
+  <section>
+    <div class="summary">
+      <h2>Summary</h2>
+      <p><strong>Balance:</strong> <span id="summary-balance">₹0</span></p>
+      <p><strong>Total Income:</strong> <span id="summary-income">₹0</span></p>
+      <p><strong>Total Expense:</strong> <span id="summary-expense">₹0</span></p>
+    </div>
+  </section>
 
-     <section>
-         <div class="summary">
-    <h2>Summary</h2>
-    <p><strong>Balance:</strong> <span id="balance">₹0</span></p>
-    <p><strong>Total Income:</strong> <span id="Income-total">₹0</span></p>
-    <p><strong>Total Expense:</strong> <span id="Expense-total">₹0</span></p>
-  </div>
-    </section>
-   </div> 
+  <!-- TRANSACTIONS -->
+  <section>
+    <div class="transactions">
+      <h2>Transactions</h2>
+      <ul id="transactionList"></ul>
+    </div>
+  </section>
 
-    <section>
-       <div class="transactions">
-    <h2>Transactions</h2>
-    <ul id="expenseList"></ul>
-  </div>
-    </section>
+  <footer>
+    Expense Tracker © 2025<br>
+    Built by Big Wayne.
+  </footer>
 
-
-    <footer>
-        Expense Tracker © 2025
-        <br>
-        Built by Big Wayne.
-    </footer>
-
-    
-    <script src="Xtracker.js"></script>
+  <script src="Xtracker.js"></script>
 </body>
 </html>
