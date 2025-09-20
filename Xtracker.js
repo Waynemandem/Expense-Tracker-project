@@ -1,49 +1,21 @@
 //variables...
 
-     const nameInput = 
-document.getElementById("expenseName");
+     const expenseForm = document.getElementById('expense-form');
+const incomeForm = document.getElementById('income-form');
 
-     const amountInput = 
-document.getElementById("expenseAmount");
+const descriptionInput = document.getElementById('description');
+const amountInput = document.getElementById('amount'); // for expense
+const categoryInput = document.getElementById('type');
 
-     const listInput = 
-document.getElementById("ExpenseList");
+const incomeDescriptionInput = document.getElementById('income-description');
+const incomeAmountInput = document.getElementById('income-amount');
+const incomeTypeInput = document.getElementById('income-type');
 
-      const exTotal = 
-document.getElementById("totalExpense");
+const list = document.getElementById('expenseList');
 
-      const catergory = 
-document.getElementById("catergory");
-
-      const budget = 
-document.getElementById("budget"); 
-
-// later changes for variables...
-
-      const form = 
-document.getElementById("expenseForm");
-
-      const form2 = 
-document.getElementById("incomeForm");
-
-      const descriptionInput =
-document.getElementById("expenseDescription");
-
-      const typeInput =
-document.getElementById("expenseType");
-
-      const list =
-document.getElementById("type");
-
-      const balance = 
-document.getElementById("balance");
-
-      const incomeE1 = 
-document.getElementById("income-total"); 
-
-      const expenseE1 = 
-document.getElementById("expense-total");
-
+const balanceEl = document.getElementById('balance');
+const incomeEl = document.getElementById('Income-total');
+const expenseEl = document.getElementById('Expense-total');
 
 //strings...
 
