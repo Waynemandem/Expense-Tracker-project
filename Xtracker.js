@@ -18,6 +18,32 @@ document.getElementById("catergory");
       const budget = 
 document.getElementById("budget"); 
 
+// later changes for variables...
+
+      const form = 
+document.getElementById("expenseForm");
+
+      const form2 = 
+document.getElementById("incomeForm");
+
+      const descriptionInput =
+document.getElementById("expenseDescription");
+
+      const typeInput =
+document.getElementById("expenseType");
+
+      const list =
+document.getElementById("type");
+
+      const balance = 
+document.getElementById("balance");
+
+      const incomeE1 = 
+document.getElementById("income-total"); 
+
+      const expenseE1 = 
+document.getElementById("expense-total");
+
 
 //strings...
 
@@ -32,6 +58,8 @@ let message = "you added an expense: " + expenseName;
 let fancyMessage = `You added ${expenseName} with catergory ${catergory}`;
 
 let expenses =[];
+
+let transactions = [];
 
 //function...
 
@@ -111,4 +139,82 @@ function filterExpenses (){
             renderExpenses(filtered);
       }
 }
+
+
+//event listener for form submission
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const transaction = {
+    id: Date.now(), // unique ID
+    name: nameInput.value,
+    amount: parseFloat(amountInput.value),
+    type: typeInput.value // "income" or "expense"
+  };
+
+  transactions.push(transaction);
+  updateUI();
+  saveData();
+
+  // clear input fields
+  descriptionInput.value = '';
+  amountInput.value = '';
+});
+
+
+form2.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const transaction = {
+    id: Date.now(), // unique ID
+    name: nameInput.value,
+    amount: parseFloat(amountInput.value),
+    type: typeInput.value // "income" or "expense"
+  };
+
+  transactions.push(transaction);
+  updateUI();
+  saveData();
+
+  // clear input fields
+  descriptionInput.value = '';
+  amountInput.value = '';
+});
+list.addEventListener('change', function() {
+  typeInput.value = list.value;
+}     );
+
+
+//function to update the UI
+function updateUI() {
+  let income = transactions.filter(t => t.type === "income");
+  let expenses = transactions.filter(t => t.type === "expense");
+
+  totalIncome = income.reduce((sum, t) => sum + t.amount, 0);
+  totalExpenses = expenses.reduce((sum, t) => sum + t.amount, 0);
+
+  incomeE1.textContent = totalIncome;
+  expenseE1.textContent = totalExpenses;
+}
+      balance.textContent = totalIncome - totalExpenses;
+//function to save data to local storage
+function saveData() {
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+}
+//function to load data from local storage
+function loadData() {
+  const data = localStorage.getItem('transactions');  
+      if (data) {
+          transactions = JSON.parse(data);
+          updateUI();
+      }
+}
+
+//load data when the page loads
+window.onload = loadData;     
+
+
+//initial UI update
+updateUI();
 
