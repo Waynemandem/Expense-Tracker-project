@@ -148,7 +148,7 @@ form.addEventListener('submit', function(e) {
 
   const transaction = {
     id: Date.now(), // unique ID
-    name: nameInput.value,
+    description: descriptionInput.value,
     amount: parseFloat(amountInput.value),
     type: typeInput.value // "income" or "expense"
   };
@@ -161,14 +161,13 @@ form.addEventListener('submit', function(e) {
   descriptionInput.value = '';
   amountInput.value = '';
 });
-
 
 form2.addEventListener('submit', function(e) {
   e.preventDefault();
 
   const transaction = {
     id: Date.now(), // unique ID
-    name: nameInput.value,
+    description: descriptionInput.value,
     amount: parseFloat(amountInput.value),
     type: typeInput.value // "income" or "expense"
   };
@@ -181,40 +180,88 @@ form2.addEventListener('submit', function(e) {
   descriptionInput.value = '';
   amountInput.value = '';
 });
-list.addEventListener('change', function() {
-  typeInput.value = list.value;
-}     );
 
-
-//function to update the UI
+// function to update the UI
 function updateUI() {
-  let income = transactions.filter(t => t.type === "income");
-  let expenses = transactions.filter(t => t.type === "expense");
+  list.innerHTML = '';
+  let totalIncome = 0;
+  let totalExpense = 0;
 
-  totalIncome = income.reduce((sum, t) => sum + t.amount, 0);
-  totalExpenses = expenses.reduce((sum, t) => sum + t.amount, 0);
+  transactions.forEach(tx => {
+    const listItem = document.createElement('li');
+    listItem.textContent = `${tx.description} - $${tx.amount} (${tx.type})`;
+    list.appendChild(listItem);
 
+    if (tx.type === 'income') {
+      li.classList.add('income');
+      totalIncome += tx.amount;
+    } else {
+      li.classList.add('expense');
+      totalExpense += tx.amount;
+    }
+
+    listItem.classList.add(tx.type);
+
+    listItem.addEventListener('click', () => {
+      listItem.classList.toggle('highlight');
+    });
+
+    listItem.addEventListener('dblclick', () => {
+      const newDescription = prompt('Edit description:', tx.description);
+      if (newDescription) {
+        tx.description = newDescription;
+        updateUI();
+      }
+    });
+
+    listItem.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      const confirmDelete = confirm('Delete this transaction?');
+      if (confirmDelete) {
+        transactions = transactions.filter(tx => tx.id !== transaction.id);
+        updateUI();
+        saveData();
+      }
+    });
+
+    // add delete button
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.addEventListener('click', () => {
+      transactions = transactions.filter(tx => tx.id !== transaction.id);
+      updateUI();
+      saveData();
+    });
+    listItem.appendChild(deleteBtn);
+  });
+
+  // update totals
+  const balance = totalIncome - totalExpense;
   incomeE1.textContent = totalIncome;
-  expenseE1.textContent = totalExpenses;
+  expenseE1.textContent = totalExpense;
+  balance.textContent = balance;
 }
-      balance.textContent = totalIncome - totalExpenses;
-//function to save data to local storage
+
+//delete transaction
+function deleteTransaction(id) {
+  transactions = transactions.filter(tx => tx.id !== id);
+  updateUI();
+  saveData();
+}
+
+// save data to local storage
 function saveData() {
   localStorage.setItem('transactions', JSON.stringify(transactions));
 }
-//function to load data from local storage
+
+// load data from local storage
 function loadData() {
-  const data = localStorage.getItem('transactions');  
-      if (data) {
-          transactions = JSON.parse(data);
-          updateUI();
-      }
+  const storedTransactions = localStorage.getItem('transactions');
+  if (storedTransactions) {
+    transactions = JSON.parse(storedTransactions);
+    updateUI();
+  }
 }
 
-//load data when the page loads
-window.onload = loadData;     
-
-
-//initial UI update
-updateUI();
-
+// call loadData on page load
+loadData();
