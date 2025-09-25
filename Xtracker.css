@@ -80,3 +80,27 @@ footer{
     width: 190px;
     text-align: center;
 }
+#child-3{
+    background-color: aqua;
+    border: 1px solid black;
+    border-radius: 24px;
+    width: 190px;
+    text-align: center;
+}
+
+/* Animations */
+@keyframes tracking-in-contract {
+  0% {
+    letter-spacing: 1em;
+    transform: translateZ(400px);
+    opacity: 0;
+  }
+  40% {
+    transform: translateZ(0);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
