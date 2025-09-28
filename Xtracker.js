@@ -165,127 +165,95 @@ setInterval(saveData, 1800000);
 setInterval(saveData, 3600000); 
 
 
-// editing transactions
+// editing transaction
 
 let editingId = null;
 
-function startEditTransaction(index) {
-  const tx = transactions.find((t, i) => i === index);
+
+// start editing a transaction
+
+function startEditTransaction(id) {
+  const tx = transactions.find(t => t.id === id);
   if (!tx) return;
-  editingId = index;
+  
 
-  if (tx.type === "expense") {
-    document.getElementById("expenseName").value = tx.title;
-    document.getElementById("expenseAmount").value = tx.amount;
-    document.getElementById("expenseDate").value = tx.date;
-    document.getElementById("expenseCategory").value = tx.category;
-    document.getElementById("expenseRecurrence").value = tx.recurrence;
-    document.getElementById("expenseNotes").value = tx.notes;
-    document.getElementById("expense-submit-btn").textContent = "Update Expense";
-  } else {
-    document.getElementById("income-description").value = tx.title;
-    document.getElementById("income-amount").value = tx.amount;
-    document.getElementById("incomeDate").value = tx.date;
-    document.getElementById("incomeCategory").value = tx.category;
-    document.getElementById("incomeRecurrence").value = tx.recurrence;
-    document.getElementById("incomeNotes").value = tx.notes;
-    document.getElementById("income-submit-btn").textContent = "Update Income";
+//  
+  if (tx.type === 'expense') {
+    document.getElementById('expenseName').value = tx.title;
+    document.getElementById('expenseAmount').value = tx.amount;
+    document.getElementById('expense-form').dataset.editing = id;
+  }
+  else {
+    document.getElementById('income-description').value = tx.title;
+    document.getElementById('income-amount').value = tx.amount;
+    document.getElementById('income-form').dataset.editing = id;  
   }
 
-  editingId = index;
-  showTab(tx.type === "income" ? "income" : "expense");
+  editingId = id;
 }
-function showTab(tab) {
-  if (tab === "income") {
-    document.getElementById("income-form").style.display = "block";
-    document.getElementById("expense-form").style.display = "none";
-  } else {
-    document.getElementById("income-form").style.display = "none";
-    document.getElementById("expense-form").style.display = "block";
-  }
-  editingId = null;
-  document.getElementById("income-submit-btn").textContent = "Add Income";
-  document.getElementById("expense-submit-btn").textContent = "Add Expense";
-}
-document.getElementById("income-tab").onclick = () => showTab("income");
-document.getElementById("expense-tab").onclick = () => showTab("expense");
-showTab("expense");
 
-// Modify form submit handlers to handle editing
-expenseForm.addEventListener("submit", (e) => {
+// modify form submit to handle edit mode
+
+function handleFormSubmit(e, type) {
   e.preventDefault();
-  const title = document.getElementById("expenseName").value;
-  const amount = parseFloat(document.getElementById("expenseAmount").value);
-  const date = document.getElementById("expenseDate").value;
-  const category = document.getElementById("expenseCategory").value;
-  const recurrence = document.getElementById("expenseRecurrence").value;
-  const notes = document.getElementById("expenseNotes").value;
-  if (!title || isNaN(amount)) return;
 
-  const expense = {
-    type: "expense",
-    title,
-    amount,   
-    date,
-    category,
-    recurrence,
-    notes,
-  };
-  if (editingId !== null) {
-    transactions[editingId] = expense;
+  if (editingId) {
+    // update existing transaction
+    const tx = transactions.find(t => t.id === editingId);
+    if (tx) {
+      if (type === 'expense') {
+        tx.title = document.getElementById('expenseName').value;
+        tx.amount = parseFloat(document.getElementById('expenseAmount').value);
+      } else {
+        tx.title = document.getElementById('income-description').value;
+        tx.amount = parseFloat(document.getElementById('income-amount').value);
+      }
+    }
     editingId = null;
-    document.getElementById("expense-submit-btn").textContent = "Add Expense";
   } else {
-    transactions.push(expense);
+    // normal add new transaction flow
+
+    const transaction = {
+      id: Date.now(), // simple unique id
+      description: 
+      type === 'expense' 
+      ? document.getElementById('expenseName').value 
+      : document.getElementById('income-description').value,
+      amount: parseFloat(
+        type === 'expense' 
+        ? document.getElementById('expenseAmount').value 
+        : document.getElementById('income-amount').value
+      ),
+      type,
+    };
+    transactions.push(transaction);
   }
+
+  saveData();
   updateSummary();
   renderTransactions();
-  expenseForm.reset();
+  e.target.reset();
 }
-);
 
-incomeForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const title = document.getElementById("income-description").value;
-  const amount = parseFloat(document.getElementById("income-amount").value);
-  const date = document.getElementById("incomeDate").value;
-  const category = document.getElementById("incomeCategory").value;
-  const recurrence = document.getElementById("incomeRecurrence").value;
-  const notes = document.getElementById("incomeNotes").value;
-  if (!title || isNaN(amount)) return;
-  const income = {
-    type: "income",
-    title,
-    amount,
-    date,
-    category,
-    recurrence,
-    notes,
-  };  
-  if (editingId !== null) {
-    transactions[editingId] = income;
-    editingId = null;
-    document.getElementById("income-submit-btn").textContent = "Add Income";
-  } else {
-    transactions.push(income);
-  } 
-  updateSummary();
-  renderTransactions();
-  incomeForm.reset();
-});
-
-// Modify renderTransactions to add edit buttons
-function renderTransactions() {
-  transactionList.innerHTML = ""; // clear list 
-  transactions.forEach((t, index) => {
-    const li = document.createElement("li");
-    li.textContent = `${t.title} - ₹${t.amount} (${t.type})`;
-    li.style.color = t.type === "income" ? "green" : "red";
-    // Edit button
-    const editBtn = document.createElement("button");
-    editBtn.textContent = "edit";
-    editBtn.style.marginLeft = "10px";
-    
+// Add event listeners for forms
+document
+  .getElementById('expense-form')
+  .addEventListener('submit', (e) => handleFormSubmit(e, 'expense'));
 
 
+document
+  .getElementById('income-form')
+  .addEventListener('submit', (e) => handleFormSubmit(e, 'income'));
 
+// Modify renderTransactions to add edit button
+
+const editBtn = document.createElement('button');
+editBtn.textContent = 'edit';
+editBtn.addEventListener ("click", () => startEditTransaction(tx.id));
+li.appendChild(editBtn);
+
+transactionList.appendChild(li);
+
+// End of Xtracker.js
+
+// i --- IGNORE ---
