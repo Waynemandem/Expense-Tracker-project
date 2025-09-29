@@ -35,13 +35,13 @@ function updateSummary() {
   const balance = income - expense;
 
   // Update UI
-  balanceDisplay.textContent = `₹${balance}`;
+  balanceDisplay.textContent = `#${balance}`;
   expenseTotalDisplay.textContent = expense;
   incomeTotalDisplay.textContent = income;
 
-  summaryBalance.textContent = `₹${balance}`;
-  summaryIncome.textContent = `₹${income}`;
-  summaryExpense.textContent = `₹${expense}`;
+  summaryBalance.textContent = `#${balance}`;
+  summaryIncome.textContent = `#${income}`;
+  summaryExpense.textContent = `#${expense}`;
 }
 
 // Function to render transactions
@@ -50,20 +50,28 @@ function renderTransactions() {
 
   transactions.forEach((t, index) => {
     const li = document.createElement("li");
-    li.textContent = `${t.title} - ₹${t.amount} (${t.type})`;
-    li.style.color = t.type === "income" ? "green" : "red";
+    li.classList.add("transaction", 
+      t.type);       // add classes
+     
+     // create text span
+     const span =
+    document.createElement("span");
+      span.textContent = `${t.title} - #${t.amount}  (${t.type})` 
 
     // Delete button
     const delBtn = document.createElement("button");
     delBtn.textContent = "delete";
-    delBtn.style.marginLeft = "10px";
+    delBtn.classList.add("delete-btn");
     delBtn.onclick = () => {
       transactions.splice(index, 1); // remove from array
       updateSummary();
       renderTransactions();
     };
 
+
+    li.appendChild(span);
     li.appendChild(delBtn);
+    
     transactionList.appendChild(li);
   });
 }
