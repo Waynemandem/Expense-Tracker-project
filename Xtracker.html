@@ -6,13 +6,14 @@
   <title>Xtracker</title>
   <link rel="stylesheet" href="Xtracker.css">
   <link rel="icon" type="image/png" href="favicon.png">
+  <script src="https://kit.fontawesome.com/82046994e6.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <header>
     <h1 id="header-h1">Expense Tracker</h1>
     <div id="total-balance-div">
-      <h2>Total Balance:</h2>
-      <h3 id="main-balance"></h3>
+      <h4>Total Balance:</h4>
+      <h1 id="main-balance"></h1>
     </div>
   </header>
 
@@ -102,12 +103,12 @@
   </main>
 
   <!-- SUMMARY -->
-  <section>
+  <section id="summary-div">
     <div class="summary">
       <h2>Summary</h2>
-      <p><strong>Balance:</strong> <span id="summary-balance">₹0</span></p>
-      <p><strong>Total Income:</strong> <span id="summary-income">₹0</span></p>
-      <p><strong>Total Expense:</strong> <span id="summary-expense">₹0</span></p>
+      <p><strong><i class="fa-solid fa-money-check"></i>  Balance:</strong> <span id="summary-balance">₹0</span></p>
+      <p><strong><i class="fa-solid fa-arrow-up"></i>  Total Income:</strong> <span id="summary-income">₹0</span></p>
+      <p><strong><i class="fa-solid fa-arrow-down"></i>  Total Expense:</strong> <span id="summary-expense">₹0</span></p>
     </div>
   </section>
 

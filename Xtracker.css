@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 3px;
-    background-color: #d9dba0;
+    background-color: rgb(161, 153, 153);
 }
 header{
     padding: 10px;
@@ -9,8 +9,19 @@ header{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     border-bottom: 2px solid; 
 }
+#header-h1{
+    font-weight: 1100;
+}
 #total-balance-div{
     text-align: left;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: #0f9d58;
+    color: black;
+}
+#total-balance-div h1{
+    font-family: Arial, Helvetica, sans-serif;
 }
 main{
     display: flex;
@@ -26,6 +37,7 @@ main{
     background: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     width: 45%;
+    color: black;
 }
 .form-div button{
     border: none;
@@ -97,13 +109,49 @@ footer{
     padding: 8px 12px;
     margin: 6px 0;
     border-radius: 6px;
-    border: 2px solid black;
+    border: 2px solid ;
     font-size: 15px;
     font-family: Arial, sans-serif;
+    background-color: white;
 }
 .transaction.income{
-    color: #0f9d58;
+    background-color: #0f9d58;
+    border: #0f9d58;
 }
 .transaction.expense{
-    color: #db4437;
+    background-color: #fe8175;
+    border: #fe8175;
+}
+.delete-btn{
+    border: 1px solid black;
+    border-radius: 15px;
+    color: black;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.transactions{
+    border: 1px solid black;
+    border-radius: 16px;
+    padding: 10px;
+    background-color: rgb(50, 49, 42);
+    color: white;
+}
+.transactions h2{
+    border-bottom: 3px solid black ;
+    padding-bottom: 10px;
+}
+.summary{
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 16px;
+    background-color: rgb(50, 49, 42);
+    color: aliceblue;
+}
+.summary h2{
+    border-bottom: 3px solid black;
+    padding-bottom: 10px;
+}
+#summary-div{
+    padding-bottom: 20px;
 }
